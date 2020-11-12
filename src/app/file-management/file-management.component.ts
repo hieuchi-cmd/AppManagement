@@ -68,6 +68,9 @@ export class FileManagementComponent implements OnInit {
   fb1;
   downloadURLI: Observable<string>;
   downloadURL: Observable<string>;
+
+  ImageuploadProgress$: Observable<number>
+  AudiouploadProgress$: Observable<number>
   
   uploadImage(vocabulary) {
     var n = Date.now();
@@ -75,6 +78,9 @@ export class FileManagementComponent implements OnInit {
     const filePath = `images/${n}`;
     const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(`images/${n}`, file);
+
+    this.ImageuploadProgress$ = task.percentageChanges()
+
     task
       .snapshotChanges()
       .pipe(
@@ -101,6 +107,9 @@ export class FileManagementComponent implements OnInit {
     const filePath = `audios/${n}`;
     const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(`audios/${n}`, file);
+
+    this.AudiouploadProgress$ = task.percentageChanges()
+
     task
       .snapshotChanges()
       .pipe(

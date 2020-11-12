@@ -152,13 +152,21 @@
 
               <div class="wrap-input100 validate-input">
                 <span class="label-input100">Image Illustrate</span>
-                <input class="input100" [(ngModel)]="vocabulary.image" type="file" name="image" (change)="uploadImage($event)" required>
+                <input class="input100" [(ngModel)]="vocabulary.image" type="file" name="image" accept=".png,.jpg" (change)="uploadImage($event)" required>
+                <div class="progress" *ngIf="ImageuploadProgress$ | async as progress">
+                  <div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': progress + '%' }"></div>
+                  Progress: {{progress}}% Complete
+                </div>
                 <span class="focus-input100"></span>
               </div>
 
               <div class="wrap-input100 validate-input">
                 <span class="label-input100">Pronounce</span>
-                <input class="input100" [(ngModel)]="vocabulary.audio" type="file" name="audio" (change)="uploadAudio($event)" required>
+                <input class="input100" [(ngModel)]="vocabulary.audio" type="file" name="audio" accept=".mp3,.wav" (change)="uploadAudio($event)" required>
+                <div class="progress" *ngIf="AudiouploadProgress$ | async as progress">
+                  <div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': progress + '%' }"></div>
+                  Progress: {{progress}}% Complete
+                </div>
                 <span class="focus-input100"></span>
               </div>
 
