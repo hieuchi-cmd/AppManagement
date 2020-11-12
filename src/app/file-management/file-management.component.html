@@ -120,8 +120,58 @@
               </li>
           </ul>
         </nav>
+
+
         <div id="page-inner" style=" padding: 10px; ">
-        
+          <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50" style="width: 55%;">
+            <form class="login100-form validate-form" style="width: 100%;" >
+              <span class="login100-form-title p-b-59">
+                Vocabulary
+              </span>
+
+              <div class="wrap-input100 validate-input" data-validate="Text is required">
+                <span class="label-input100">English Word</span>
+                <input class="input100" type="text" required [(ngModel)]="vocabulary.eng" name="english" placeholder="Input english word">
+                <span class="focus-input100"></span>
+              </div>
+
+              <div class="wrap-input100 validate-input" data-validate="Text is required">
+                <span class="label-input100">Vietnamese Word</span>
+                <input class="input100" type="text" required [(ngModel)]="vocabulary.vi" name="vietnamese" placeholder="Input vietnamese word">
+                <span class="focus-input100"></span>
+              </div>
+
+              <div class="wrap-input100 validate-input">
+                <span class="label-input100">Lession</span>
+                <select [(ngModel)]="vocabulary.lession" (change)="parseValue($event)" name="category" style="width: 100%;height: 31px;">
+                  <option>--Select--</option>
+                  <option *ngFor="let a of listOptions" [value]="a">{{a}}</option>
+                </select>
+                <span class="focus-input100"></span>
+              </div>
+
+              <div class="wrap-input100 validate-input">
+                <span class="label-input100">Image Illustrate</span>
+                <input class="input100" [(ngModel)]="vocabulary.image" type="file" name="image" (change)="uploadImage($event)" required>
+                <span class="focus-input100"></span>
+              </div>
+
+              <div class="wrap-input100 validate-input">
+                <span class="label-input100">Pronounce</span>
+                <input class="input100" [(ngModel)]="vocabulary.audio" type="file" name="audio" (change)="uploadAudio($event)" required>
+                <span class="focus-input100"></span>
+              </div>
+
+              <div class="container-login100-form-btn">
+                <div class="wrap-login100-form-btn">
+                  <div class="login100-form-bgbtn"></div>
+                  <button class="login100-form-btn" (click)="creater()">
+                    Upload
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         <hr />
             
         </div>
@@ -160,6 +210,7 @@
   </div>
   <script>
     document.getElementById("user").classList.add('active-menu');
+    $('#myModal').modal('show');
 </script>
   <script src="assets/jquery.min.js"></script>
   <script src="assets/bootstrap.bundle.min.js"></script>
