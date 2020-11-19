@@ -25,8 +25,20 @@ export class FileManagementComponent implements OnInit {
 
   lession: Lession;
   listOptions: Lession[] = [
-    Lession.Action,
-    Lession.Animal,
+    Lession.Actions,
+    Lession.Alphabets,
+    Lession.Animals,
+    Lession.Body,
+    Lession.Careers,
+    Lession.Colors,
+    Lession.Emotions,
+    Lession.Foods,
+    Lession.Fruits,
+    Lession.Home,
+    Lession.Landscapes,
+    Lession.Numbers,
+    Lession.Sports,
+    Lession.Transprots,
   ]
 
   constructor(private db: AngularFirestore, 

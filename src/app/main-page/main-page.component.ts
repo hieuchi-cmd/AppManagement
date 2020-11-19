@@ -10,12 +10,16 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 export class MainPageComponent implements OnInit {
   @Input() numberOfUser: number;
+  @Input() numberOfVoca: number;
   constructor(private db: AngularFirestore, private firebaseService: FirebaseService) { }
 
   ngOnInit(): void {
     this.db.collection('users').get().toPromise().then(snap => {
       this.numberOfUser = snap.size // will return the collection size
-   }); 
+   });
+   this.db.collection('Vocabulary').get().toPromise().then(snap => {
+    this.numberOfVoca = snap.size // will return the collection size
+ });
   }
 
   logout(){

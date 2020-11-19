@@ -3,7 +3,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" routerLink="/admin">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" routerLink="">
           <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-user-shield"></i>
           </div>
@@ -63,7 +63,6 @@
       
       </ul>
     <div id="content-wrapper" class="d-flex flex-column">
-
       <div id="content">
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -126,68 +125,64 @@
               </li>
           </ul>
         </nav>
-
-
         <div id="page-inner" style=" padding: 10px; ">
-          <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50" style="width: 55%;">
-            <form class="login100-form validate-form" style="width: 100%;" >
-              <span class="login100-form-title p-b-59">
-                Vocabulary
-              </span>
-
-              <div class="wrap-input100 validate-input" data-validate="Text is required">
-                <span class="label-input100">English Word</span>
-                <input class="input100" type="text" required [(ngModel)]="vocabulary.eng" name="english" placeholder="Input english word">
-                <span class="focus-input100"></span>
-              </div>
-
-              <div class="wrap-input100 validate-input" data-validate="Text is required">
-                <span class="label-input100">Vietnamese Word</span>
-                <input class="input100" type="text" required [(ngModel)]="vocabulary.vi" name="vietnamese" placeholder="Input vietnamese word">
-                <span class="focus-input100"></span>
-              </div>
-
-              <div class="wrap-input100 validate-input">
-                <span class="label-input100">Lession</span>
-                <select [(ngModel)]="vocabulary.lession" (change)="parseValue($event)" name="category" style="width: 100%;height: 31px;">
-                  <option>--Select--</option>
-                  <option *ngFor="let a of listOptions" [value]="a">{{a}}</option>
-                </select>
-                <span class="focus-input100"></span>
-              </div>
-
-              <div class="wrap-input100 validate-input">
-                <span class="label-input100">Image Illustrate</span>
-                <input class="input100" [(ngModel)]="vocabulary.image" type="file" name="image" accept=".png,.jpg" (change)="uploadImage($event)" required>
-                <div class="progress" *ngIf="ImageuploadProgress$ | async as progress">
-                  <div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': progress + '%' }"></div>
-                  Progress: {{progress}}% Complete
+          <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50" style="width: 100%;">
+            <h1 style="margin-top: 25px;">
+              Vocabulary List
+            </h1>
+                    <div class="row" style="margin-bottom: 20px; margin-top: 20px">
+                      <div class="col-6">
+                        <div class="input-group">
+                          <input class="form-control border-secondary py-2" style="height:30px; font-size:14px;" placeholder="search for items" type="text"
+                            #data />
+                            <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" style="width: 100px; padding: 5px; background-color:white;" type="button" (click)="VocabularySearch(data.value)">
+                             search
+                            </button>
+                          </div>
+                        </div>
+                        <select name="category" style="width: 100%;height: 31px;" [(ngModel)]="selectedLession" (change)="valueSelected()">
+                          <option>--Select--</option>
+                          <option *ngFor="let a of listOptions" [value]="a">{{a}}</option>
+                        </select>
+                      </div>
+                    </div>
+            <div class="row" style="margin-top: 25px;">
+              <div *ngFor="let item of filtered">      
+                <div class="col-md-3 col-sm-6">
+                  <div #inputMessage class="card card-block" style="width: 18rem;" class="card" [ngClass]="{highlight: item.highlight}">
+                    <div class="card-body" *ngIf="!item.isEdit; else elseBlock">
+                      <img src={{item.image}} alt="Photo of sunset">
+                      <h5 class="card-title mt-3 mb-3">{{item.eng}}</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">Vietnamese: {{item.vi}}</h6>
+                      <a href="javascript:void(0);" class="card-link" (click)="EditRecord(item)">Edit</a>
+                      <a href="javascript:void(0);" class="card-link" (click)="RemoveRecord(item.id)">Delete</a>
+                    </div>
+                    <ng-template #elseBlock>
+                      <div class="card-body">
+                        <h5 class="card-title">Edit</h5>
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-md-12">
+                              English:
+                              <input type="text" class="form-control" [(ngModel)]="item.Eng"
+                                placeholder="Edit in English">
+                            </div>
+                            <div class="col-md-12">
+                              Vietnamese:
+                              <input type="text" class="form-control" [(ngModel)]="item.EditVi"
+                                placeholder="Edit in Vietnamese">
+                            </div>
+                          </div>
+                        </div>
+                        <a href="javascript:void(0);" class="card-link" (click)="item.isEdit = false">Cancel</a>
+                        <a href="javascript:void(0);" class="card-link" (click)="UpdateRecord(item)">Update</a>
+                      </div>
+                    </ng-template>
+                  </div>
                 </div>
-                <span class="focus-input100"></span>
-              </div>
-
-              <div class="wrap-input100 validate-input">
-                <span class="label-input100">Pronounce</span>
-                <input class="input100" [(ngModel)]="vocabulary.audio" type="file" name="audio" accept=".mp3,.wav" (change)="uploadAudio($event)" required>
-                <div class="progress" *ngIf="AudiouploadProgress$ | async as progress">
-                  <div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': progress + '%' }"></div>
-                  Progress: {{progress}}% Complete
-                </div>
-                <span class="focus-input100"></span>
-              </div>
-
-              <div class="container-login100-form-btn">
-                <div class="wrap-login100-form-btn">
-                  <div class="login100-form-bgbtn"></div>
-                  <button class="login100-form-btn" (click)="creater()">
-                    Upload
-                  </button>
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
-        <hr />
-            
         </div>
 
       <footer class="sticky-footer bg-white">
@@ -224,7 +219,6 @@
   </div>
   <script>
     document.getElementById("user").classList.add('active-menu');
-    $('#myModal').modal('show');
 </script>
   <script src="assets/jquery.min.js"></script>
   <script src="assets/bootstrap.bundle.min.js"></script>

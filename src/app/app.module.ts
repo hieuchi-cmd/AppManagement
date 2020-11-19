@@ -13,13 +13,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { FileManagementComponent } from './file-management/file-management.component';
+import { ListVocabularyComponent } from './list-vocabulary/list-vocabulary.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MainPageComponent,
-    FileManagementComponent
+    FileManagementComponent,
+    ListVocabularyComponent
   ],
   imports: [
     BrowserModule,
