@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { FileManagementComponent } from './file-management/file-management.component';
 import { ListVocabularyComponent } from './list-vocabulary/list-vocabulary.component';
+import { UserManagementComponent } from './user-management/user-management.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ListVocabularyComponent } from './list-vocabulary/list-vocabulary.compo
     AppComponent,
     MainPageComponent,
     FileManagementComponent,
-    ListVocabularyComponent
+    ListVocabularyComponent,
+    UserManagementComponent
   ],
   imports: [
     BrowserModule,
